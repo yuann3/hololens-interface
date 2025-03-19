@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 199 100% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 100% 50%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 199 100% 50%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Blur UI Design System */
+.blur-panel {
+  @apply backdrop-blur-xl border border-blur-border rounded-2xl;
+  background-color: rgba(40, 40, 40, 0.75);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.blur-panel-light {
+  @apply backdrop-blur-xl border border-blur-border rounded-2xl;
+  background-color: rgba(60, 60, 60, 0.65);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Updated button styles to match "Drag to move" button */
+.blur-button {
+  @apply backdrop-blur-xl border border-blur-border rounded-full 
+    hover:bg-blur-light hover:border-blur-borderActive transition-all duration-300
+    text-white font-medium shadow-md;
+  background-color: rgba(40, 40, 40, 0.75);
+  color: white;
+}
+
+.blur-badge {
+  @apply backdrop-blur-xl border border-blur-border rounded-full px-3 py-1
+    text-white/90 text-sm font-medium;
+  background-color: rgba(40, 40, 40, 0.75);
+}
+
+.blur-icon-button {
+  @apply backdrop-blur-xl border border-blur-border rounded-full p-2
+    hover:bg-blur-light hover:border-blur-borderActive transition-all duration-300;
+  background-color: rgba(40, 40, 40, 0.75);
+}
+
+.blur-divider {
+  @apply h-px bg-blur-border my-4;
+}
+
+.blur-slider-track {
+  @apply h-1.5 bg-blur-light rounded-full overflow-hidden;
+}
+
+.blur-slider-range {
+  @apply h-full rounded-full;
+}
+
+.blur-slider-thumb {
+  @apply w-4 h-4 bg-white rounded-full border-2 border-blur-border;
+}
+
+/* Fix for HTML container in Three.js */
+.no-outline {
+  outline: none !important;
+}
+
+.no-outline > div {
+  outline: none !important;
+}
+
+/* Remove debug outlines but keep the elements visible */
+.no-outline::after,
+.no-outline::before {
+  display: none !important;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* HoloLens visual effects */
+.holo-lens-effect {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.holo-lens-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.05) 80%, rgba(0, 0, 0, 0.2) 100%);
+  border-radius: 5%;
+}
+
+.holo-lens-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+/* Override shadcn sheet component to match our dark theme */
+.dark [cmdk-overlay],
+[cmdk-overlay] {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.dark [cmdk-dialog],
+[cmdk-dialog] {
+  background-color: rgba(40, 40, 40, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+/* Override select dropdown to match our dark theme */
+.select-content {
+  background-color: rgba(40, 40, 40, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: white !important;
+}
+
+.select-item {
+  color: white !important;
+}
+
+.select-item:hover {
+  background-color: rgba(60, 60, 60, 0.85) !important;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  * {
+    touch-action: manipulation;
+  }
+  
+  body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent text selection during touch interactions */
+  .no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Optimize touch targets for mobile */
+  button, 
+  [role="button"],
+  input,
+  select,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobile-specific optimizations */
+html.mobile {
+  /* Apply smooth scrolling only on mobile */
+  scroll-behavior: smooth;
+}
+
+/* Optimize mobile interactions */
+html.mobile button,
+html.mobile [role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* Apply the no-select class to prevent text selection on touch */
+html.mobile .draggable,
+html.mobile [role="draggable"] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Mobile-specific enhancements for dragging */
+html.mobile .drag-handle {
+  padding: 8px;
+  margin: -8px;
+}
+
+/* Handle devices with notch */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-area-padding {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
