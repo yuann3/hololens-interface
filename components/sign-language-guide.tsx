@@ -9,6 +9,7 @@ import { ChevronLeft, ChevronRight, Hand, Check, Mic, RefreshCw } from "lucide-r
 import type * as THREE from "three"
 import DraggableWindow from "./draggable-window"
 import { motion, AnimatePresence } from "framer-motion"
+import YouTubePlayer from "./youtube-player"
 
 // Common sign language dictionary
 const signDictionary = {
@@ -344,13 +345,25 @@ export default function SignLanguageGuide() {
                       className="relative"
                     >
                       <div className="relative rounded-xl overflow-hidden border border-blur-border shadow-lg">
-                        <img
-                          src={currentSign.image || "/placeholder.svg"}
-                          alt={`Sign for ${currentSignKey}`}
-                          width={300}
-                          height={300}
-                          className="rounded-xl"
-                        />
+                        {mode === "audio-to-sign" ? (
+                          <YouTubePlayer 
+                            videoId="6HLqoqXslsk" 
+                            width={300} 
+                            height={300}
+                            autoplay={true}
+                            mute={true}
+                            loop={true}
+                          />
+                        ) : (
+                          <YouTubePlayer 
+                            videoId="KLZvnR2aO6U" 
+                            width={300} 
+                            height={300}
+                            autoplay={true}
+                            mute={true}
+                            loop={true}
+                          />
+                        )}
 
                         {/* Overlay gradient */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
@@ -449,35 +462,42 @@ export default function SignLanguageGuide() {
                 </AnimatePresence>
 
                 {/* Progress indicator */}
-                {signSequence.length > 0 && (
+                {mode === "audio-to-sign" && (
                   <div className="flex justify-center gap-2 my-5">
-                    {signSequence.map((_, index) => (
-                      <motion.div
-                        key={index}
-                        className={`h-2 rounded-full cursor-pointer ${
-                          index === signGuideStep
-                            ? mode === "visual"
-                              ? "bg-mode-visual w-8"
-                              : "bg-mode-sign w-8"
-                            : completedSteps.includes(index)
-                              ? "bg-white/50 w-4"
-                              : "bg-white/20 w-4"
-                        }`}
-                        animate={{
-                          backgroundColor:
+                    {signSequence.length > 0 ? (
+                      signSequence.map((_, index) => (
+                        <motion.div
+                          key={index}
+                          className={`h-2 rounded-full cursor-pointer ${
                             index === signGuideStep
-                              ? mode === "visual"
-                                ? "rgba(34, 197, 94, 0.7)"
-                                : "rgba(168, 85, 247, 0.7)"
+                              ? "bg-mode-sign w-8"
                               : completedSteps.includes(index)
-                                ? "rgba(255, 255, 255, 0.5)"
-                                : "rgba(255, 255, 255, 0.2)",
-                          width: index === signGuideStep ? 32 : 16,
+                                ? "bg-white/50 w-4"
+                                : "bg-white/20 w-4"
+                          }`}
+                          animate={{
+                            backgroundColor:
+                              index === signGuideStep
+                                ? "rgba(168, 85, 247, 0.7)"
+                                : completedSteps.includes(index)
+                                  ? "rgba(255, 255, 255, 0.5)"
+                                  : "rgba(255, 255, 255, 0.2)",
+                            width: index === signGuideStep ? 32 : 16,
+                          }}
+                          transition={{ duration: 0.3 }}
+                          onClick={() => setSignGuideStep(index)}
+                        />
+                      ))
+                    ) : (
+                      <motion.div
+                        className="h-2 rounded-full bg-mode-sign w-8"
+                        animate={{
+                          backgroundColor: "rgba(168, 85, 247, 0.7)",
+                          width: 32,
                         }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => setSignGuideStep(index)}
                       />
-                    ))}
+                    )}
                   </div>
                 )}
 
